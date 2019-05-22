@@ -2,9 +2,13 @@ package com.oliverspryn.library
 
 class Semver(version: String) {
 
-    private val major: Int
-    private val minor: Int
-    private val patch: Int
+    data class Parts(
+        val major: Int,
+        val minor: Int,
+        val patch: Int
+    )
+
+    private var parsed = Parts(0, 0, 0)
 
     init {
         val parts = version.split(".")
@@ -13,14 +17,16 @@ class Semver(version: String) {
             throw IllegalArgumentException("$version does not conform to semver conventions")
         }
 
-        major = parts[0].toInt()
-        minor = parts[1].toInt()
-        patch = parts[2].toInt()
+        parsed = Parts(
+            major = parts[0].toInt(),
+            minor = parts[1].toInt(),
+            patch = parts[2].toInt()
+        )
     }
 
     operator fun compareTo(semver: Semver): Int {
-        val theseParts = arrayOf(major, minor, patch)
-        val thoseParts = arrayOf(semver.major, semver.minor, semver.patch)
+        val theseParts = arrayOf(parsed.major, parsed.minor, parsed.patch)
+        val thoseParts = arrayOf(semver.parsed.major, semver.parsed.minor, semver.parsed.patch)
 
         for (i in 0..2) {
             if (theseParts[i] > thoseParts[i]) {
@@ -34,10 +40,18 @@ class Semver(version: String) {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other !is Semver) return false
+        val semver: Semver = when (other) {
+            is String -> try {
+                Semver(other)
+            } catch (e: IllegalArgumentException) {
+                return false
+            }
+            !is Semver -> return false
+            else -> other
+        }
 
-        val theseParts = arrayOf(major, minor, patch)
-        val thoseParts = arrayOf(other.major, other.minor, other.patch)
+        val theseParts = arrayOf(parsed.major, parsed.minor, parsed.patch)
+        val thoseParts = arrayOf(semver.parsed.major, semver.parsed.minor, semver.parsed.patch)
 
         for (i in 0..2) {
             if (theseParts[i] != thoseParts[i]) {
