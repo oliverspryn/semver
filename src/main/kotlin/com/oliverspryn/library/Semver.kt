@@ -46,8 +46,8 @@ class Semver(version: String) {
             } catch (e: IllegalArgumentException) {
                 return false
             }
-            !is Semver -> return false
-            else -> other
+            is Semver -> other
+            else -> return false
         }
 
         val theseParts = arrayOf(parsed.major, parsed.minor, parsed.patch)
