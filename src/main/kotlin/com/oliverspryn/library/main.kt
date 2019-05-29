@@ -35,4 +35,10 @@ fun main() {
     }
 
     println(Semver("2.01.000100"))
+
+    try {
+        Semver("Something else")
+    } catch (e: IllegalArgumentException) {
+        println(e.message)
+    }
 }

@@ -62,7 +62,5 @@ class Semver(version: String) {
         return true
     }
 
-    override fun toString(): String {
-        return "${parsed.major}.${parsed.minor}.${parsed.patch}"
-    }
+    override fun toString() = "${parsed.major}.${parsed.minor}.${parsed.patch}"
 }
