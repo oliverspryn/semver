@@ -62,5 +62,6 @@ class Semver(version: String) {
         return true
     }
 
+    override fun hashCode() = toString().hashCode()
     override fun toString() = "${parsed.major}.${parsed.minor}.${parsed.patch}"
 }
