@@ -31,7 +31,7 @@ fun main() {
     }
 
     if (Semver("2.1.0") >= Semver("2.0.36")) {
-        println("2.1.37 >= 2.1.36")
+        println("2.1.0 >= 2.0.36")
     }
 
     println(Semver("2.01.000100"))
