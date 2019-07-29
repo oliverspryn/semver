@@ -5,35 +5,21 @@ import com.oliverspryn.library.models.Version
 
 class Semver(version: String) {
 
-    private data class Parts(
-        val version: Version,
-        val prePreReleaseVersion: PreReleaseVersion
-    )
-
-    private val parsed: Parts
+    private val parsedVersion = Version.parse(version)
+    private val parsedPreReleaseVersion: PreReleaseVersion
 
     init {
-        val parsedVersion = Version.parse(version)
-
-        parsed = Parts(
-            version = parsedVersion,
-            prePreReleaseVersion = PreReleaseVersion.parse(version, parsedVersion)
-        )
+        parsedPreReleaseVersion = PreReleaseVersion.parse(version, parsedVersion)
     }
 
     // region Overloaded Operators
 
     operator fun compareTo(semver: Semver): Int {
-        val theseParts = arrayOf(parsed.version.major, parsed.version.minor, parsed.version.patch)
-        val thoseParts = arrayOf(semver.parsed.version.major, semver.parsed.version.minor, semver.parsed.version.patch)
+        val versionCompare = parsedVersion.compareTo(semver.parsedVersion)
+        if (versionCompare != 0) return versionCompare
 
-        for (i in 0..2) {
-            if (theseParts[i] > thoseParts[i]) {
-                return 1
-            } else if (theseParts[i] < thoseParts[i]) {
-                return -1
-            }
-        }
+        val preReleaseVersionCompare = parsedPreReleaseVersion.compareTo(semver.parsedPreReleaseVersion)
+        if (preReleaseVersionCompare != 0) return preReleaseVersionCompare
 
         return 0
     }
@@ -49,16 +35,7 @@ class Semver(version: String) {
             else -> return false
         }
 
-        val theseParts = arrayOf(parsed.version.major, parsed.version.minor, parsed.version.patch)
-        val thoseParts = arrayOf(semver.parsed.version.major, semver.parsed.version.minor, semver.parsed.version.patch)
-
-        for (i in 0..2) {
-            if (theseParts[i] != thoseParts[i]) {
-                return false
-            }
-        }
-
-        return true
+        return parsedVersion == semver.parsedVersion && parsedPreReleaseVersion == semver.parsedPreReleaseVersion
     }
 
     // endregion
@@ -69,9 +46,9 @@ class Semver(version: String) {
 
     override fun toString(): String {
         val builder = StringBuilder()
-        builder.append(parsed.version)
+        builder.append(parsedVersion.toString())
 
-        if (!parsed.prePreReleaseVersion.toString().isBlank()) builder.append("-${parsed.prePreReleaseVersion}")
+        if (!parsedPreReleaseVersion.toString().isBlank()) builder.append("-$parsedPreReleaseVersion")
 
         return builder.toString()
     }

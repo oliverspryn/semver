@@ -14,13 +14,35 @@ abstract class PreReleaseVersion(
         const val rc = "rc"
     }
 
+    private data class Comparison(
+        val ourValue: Int,
+        val theirValue: Int
+    )
+
     // region Overloaded Operators
+
+    operator fun compareTo(version: PreReleaseVersion): Int {
+        val toCompare = listOf(
+            Comparison(weight, version.weight), // The numerical weight of a pre-release version, dev is least, and release is the most
+            Comparison(number, version.number) // The dot value after the release type, e.g. .1 in alpha.1
+        )
+
+        for (compare in toCompare) {
+            if (compare.ourValue > compare.theirValue) {
+                return 1
+            } else if (compare.ourValue < compare.theirValue) {
+                return -1
+            }
+        }
+
+        return 0
+    }
 
     override fun equals(other: Any?): Boolean {
         val version = other as? PreReleaseVersion ?: return false
 
-        val namesMatch = version.name?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
-        val numbersMatch = version.number == number
+        val namesMatch = name?.toLowerCase()?.trim() == version.name?.toLowerCase()?.trim()
+        val numbersMatch = number == version.number
 
         return namesMatch && numbersMatch
     }

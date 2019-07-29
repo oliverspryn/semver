@@ -41,7 +41,37 @@ data class Version(
 
     fun isDev() = major == 0
 
+    // region Overloaded Operators
+
+    operator fun compareTo(version: Version): Int {
+        val theseParts = arrayOf(major, minor, patch)
+        val thoseParts = arrayOf(version.major, version.minor, version.patch)
+
+        for (i in 0..2) {
+            if (theseParts[i] > thoseParts[i]) {
+                return 1
+            } else if (theseParts[i] < thoseParts[i]) {
+                return -1
+            }
+        }
+
+        return 0
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val version = other as? Version ?: return false
+        return major == version.major && minor == version.minor && patch == version.patch
+    }
+
+    // endregion
+
+    // region Required Additional Overrides
+
+    override fun hashCode() = toString().hashCode()
+
     override fun toString(): String {
         return "$major.$minor.$patch"
     }
+
+    // endregion
 }
