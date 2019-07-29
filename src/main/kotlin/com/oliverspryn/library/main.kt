@@ -35,6 +35,8 @@ fun main() {
     }
 
     println(Semver("2.01.000100"))
+    println(Semver("1.0.0-alpha"))
+    println(Semver("1.0.0-alpha.1"))
 
     try {
         Semver("Something else")
