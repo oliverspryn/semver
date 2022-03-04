@@ -41,7 +41,7 @@ abstract class PreReleaseVersion(
     override fun equals(other: Any?): Boolean {
         val version = other as? PreReleaseVersion ?: return false
 
-        val namesMatch = name?.toLowerCase()?.trim() == version.name?.toLowerCase()?.trim()
+        val namesMatch = name?.lowercase()?.trim() == version.name?.lowercase()?.trim()
         val numbersMatch = number == version.number
 
         return namesMatch && numbersMatch
@@ -112,7 +112,7 @@ abstract class PreReleaseVersion(
 
             val pattern = "(?<=-)[a-zA-Z0-9\\-.]*".toRegex()
             val preReleaseVersionString =
-                pattern.find(version)?.value?.toLowerCase()?.trim() // e.g. Given: 1.0.0-rc.1+sha.5114f85, extract: rc.1
+                pattern.find(version)?.value?.lowercase()?.trim() // e.g. Given: 1.0.0-rc.1+sha.5114f85, extract: rc.1
 
             // Given: 0.0.1 or 1.0.0, or something else without a pre-release version
 

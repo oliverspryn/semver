@@ -48,7 +48,7 @@ class Semver(version: String) {
         val builder = StringBuilder()
         builder.append(parsedVersion.toString())
 
-        if (!parsedPreReleaseVersion.toString().isBlank()) builder.append("-$parsedPreReleaseVersion")
+        if (parsedPreReleaseVersion.toString().isNotBlank()) builder.append("-$parsedPreReleaseVersion")
 
         return builder.toString()
     }
