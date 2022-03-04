@@ -1,7 +1,5 @@
 package com.oliverspryn.library.models
 
-import java.lang.NumberFormatException
-
 data class Version(
     val major: Int,
     val minor: Int,
