@@ -18,7 +18,7 @@ repositories {
 val compileKotlin: KotlinCompile by tasks
 
 compileKotlin.kotlinOptions {
-    jvmTarget = Versions.JVM
+    jvmTarget = Versions.JVM_STRING
 }
 
 dependencies {
@@ -26,17 +26,20 @@ dependencies {
 }
 
 java {
+    sourceCompatibility = Versions.JVM
+    targetCompatibility = Versions.JVM
+
     withJavadocJar()
     withSourcesJar()
 }
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("semver") {
             groupId = CentralRepository.Artifact.GROUP_ID
             artifactId = CentralRepository.Artifact.ID
             version = CentralRepository.Artifact.VERSION
-            from(components["kotlin"])
+            from(components["java"])
 
             pom {
                 name.set(CentralRepository.Project.NAME)
@@ -75,7 +78,15 @@ publishing {
         maven {
             val releaseUri = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             val snapshotUri = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+
+            name = "central"
             url = if (CentralRepository.Artifact.VERSION.endsWith("SNAPSHOT")) snapshotUri else releaseUri
+
+            credentials(PasswordCredentials::class)
+
+            authentication {
+                create<BasicAuthentication>("basic")
+            }
         }
     }
 }
@@ -84,9 +95,15 @@ signing {
     val signingKey: String? by project
     val signingPassword: String? by project
     useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["maven"])
+    sign(publishing.publications["semver"])
 }
 
 tasks.dokkaHtml.configure {
     outputDirectory.set(buildDir.resolve("dokka"))
+}
+
+tasks.javadoc {
+    if (JavaVersion.current().isJava9Compatible) {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
+    }
 }
