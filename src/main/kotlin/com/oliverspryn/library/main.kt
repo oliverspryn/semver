@@ -1,5 +1,8 @@
 package com.oliverspryn.library
 
+/**
+ * @suppress
+ */
 fun main() {
 
     if (Semver("1.0.0") == Semver("1.0.0")) {

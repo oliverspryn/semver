@@ -3,6 +3,14 @@ package com.oliverspryn.library
 import com.oliverspryn.library.models.PreReleaseVersion
 import com.oliverspryn.library.models.Version
 
+/**
+ * A general-purpose processor for comparing version numbers that
+ * adhere to the <a href="https://semver.org">Semantic Versioning 2.0.0 standard</a>.
+ *
+ * @param version The version string to compare
+ * @constructor Create a fully-processed and understood representation of Semver to compare
+ * @throws IllegalArgumentException Whenever the version string does not adhere to Semver standards
+ */
 class Semver(version: String) {
 
     private val parsedVersion = Version.parse(version)
@@ -14,6 +22,13 @@ class Semver(version: String) {
 
     // region Overloaded Operators
 
+    /**
+     * Overloaded comparison operator to determine if two version strings
+     * are equal or if one is greater than another.
+     *
+     * @param semver Another Semver object to do a comparison against
+     * @return 0 when equal, 1 when this object is greater, or -1 when the other object is greater
+     */
     operator fun compareTo(semver: Semver): Int {
         val versionCompare = parsedVersion.compareTo(semver.parsedVersion)
         if (versionCompare != 0) return versionCompare
@@ -24,6 +39,14 @@ class Semver(version: String) {
         return 0
     }
 
+    /**
+     * Accepts comparison against both Semver object and strings. This
+     * class will attempt to cast String objects to Semver objects and
+     * do comparison from there.
+     *
+     * @param other A String or Semver object to compare against
+     * @return Whether the two version stamps are the same
+     */
     override fun equals(other: Any?): Boolean {
         val semver: Semver = when (other) {
             is String -> try {
@@ -42,8 +65,17 @@ class Semver(version: String) {
 
     // region Required Additional Overrides
 
+    /**
+     * @suppress
+     */
     override fun hashCode() = toString().hashCode()
 
+    /**
+     * Returns a nicely formatted, standards-compliant representation of
+     * the version string provided to the constructor.
+     *
+     * @return A formatted version string
+     */
     override fun toString(): String {
         val builder = StringBuilder()
         builder.append(parsedVersion.toString())

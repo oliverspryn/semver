@@ -1,6 +1,9 @@
 package com.oliverspryn.library.models
 
-data class Version(
+/**
+ * @suppress
+ */
+internal data class Version(
     val major: Int,
     val minor: Int,
     val patch: Int

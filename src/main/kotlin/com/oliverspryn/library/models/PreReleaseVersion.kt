@@ -2,7 +2,10 @@ package com.oliverspryn.library.models
 
 import java.lang.NumberFormatException
 
-abstract class PreReleaseVersion(
+/**
+ * @suppress
+ */
+internal abstract class PreReleaseVersion(
     val name: String? = null,
     val number: Int = 0,
     private val weight: Int

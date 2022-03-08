@@ -1,0 +1,33 @@
+name: Publish to the Central Repository
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Clone Repository
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        
+    - name: Publish the Library
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: |
+          publishSemverPublicationToCentralRepository
+          -PcentralUsername="$CENTRAL_REPOSITORY_USERNAME"
+          -PcentralPassword="$CENTRAL_REPOSITORY_PASSWORD"
+          -PsigningKey="$GPG_SIGNING_KEY"
+          -PsigningPassword="$GPG_SIGNING_KEY_PASSWORD"
+      env:
+        CENTRAL_REPOSITORY_USERNAME: ${{ secrets.CENTRAL_REPOSITORY_USERNAME }}
+        CENTRAL_REPOSITORY_PASSWORD: ${{ secrets.CENTRAL_REPOSITORY_PASSWORD }}
+        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+        GPG_SIGNING_KEY_PASSWORD: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
