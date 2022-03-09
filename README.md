@@ -1,31 +1,32 @@
 # Semver
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.oliverspryn.library/semver?label=Maven%20Central)](https://mvnrepository.com/artifact/com.oliverspryn.library/semver)
 [![Build Project](https://github.com/oliverspryn/semver/actions/workflows/build.yml/badge.svg)](https://github.com/oliverspryn/semver/actions/workflows/build.yml)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/939149ebbddd487b9beae339f0f2d836)](https://www.codacy.com/app/oliverspryn/semver)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/939149ebbddd487b9beae339f0f2d836)](https://app.codacy.com/gh/oliverspryn/semver/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/053a1e8e2bb58c5b2426/maintainability)](https://codeclimate.com/github/oliverspryn/semver/maintainability)
-[![Known Vulnerabilities](https://snyk.io//test/github/oliverspryn/semver/badge.svg?targetFile=build.gradle)](https://snyk.io//test/github/oliverspryn/semver?targetFile=build.gradle)
+![Current Release](https://img.shields.io/github/v/release/oliverspryn/semver?label=Latest%20Release&sort=semver)
 
 A Kotlin library for parsing and comparing version numbers which adhere to the [Semantic Versioning 2.0.0 standard](https://semver.org). This library handles the most common semver version and pre-release version conventions. Here are a few examples of versions the library can understand:
 
-- `0.0.1`
-- `1.0.0`
-- `2.1.136`
-- `2.0.0-alpha`
-- `2.0.0-alpha.1`
-- `2.0.0-beta.12`
-- `2.0.0-rc.3`
+-   `0.0.1`
+-   `1.0.0`
+-   `2.1.136`
+-   `2.0.0-alpha`
+-   `2.0.0-alpha.1`
+-   `2.0.0-beta.12`
+-   `2.0.0-rc.3`
 
 Here are a few less common applications of the standard which are not supported by the library:
 
-- `1.0.0-0.3.7`
-- `1.0.0-x.7.z.92`
-- `1.0.0-alpha.beta`
+-   `1.0.0-0.3.7`
+-   `1.0.0-x.7.z.92`
+-   `1.0.0-alpha.beta`
 
 ## Getting Started
 
 To import this library into your app using Gradle, follow these steps.
 
-For reference, the current version of this library is: ![Current Release](https://img.shields.io/github/v/release/oliverspryn/semver?label=Latest%20Release&sort=semver)
+For reference, the current version of this library is: [![Maven Central](https://img.shields.io/maven-central/v/com.oliverspryn.library/semver?label=Maven%20Central)](https://mvnrepository.com/artifact/com.oliverspryn.library/semver)
 
 **build.gradle.kts**
 
