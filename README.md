@@ -78,6 +78,31 @@ Semver("2.1.0-beta.1") > Semver("2.1.0-beta") // true
 Semver("2.1.0-rc.11") < Semver("2.1.0") // true
 ```
 
+### Components
+
+You can also create `Semver` objects by passing in individual components of the version number:
+
+```kotlin
+val semver = Semver(1, 5, 12)
+println(semver) // 1.5.12
+
+println(semver.major) // 1
+println(semver.minor) // 5
+println(semver.patch) // 12
+
+val semverPrerelease = Semver(1, 5, 13, "beta.1")
+println(semverPrerelease) // 1.5.13-beta.1
+println(semverPrerelease.preReleaseVersion) // beta.1
+
+val semverString = Semver("1.5.14-alpha.10")
+println(semverString) // 1.5.14-alpha.10
+
+println(semverString.major) // 1
+println(semverString.minor) // 5
+println(semverString.patch) // 14
+println(semverString.preReleaseVersion) // alpha.10
+```
+
 ### Formatting
 
 This library is also capable of performing some light formatting on the given input to conform it to the semver convention.
