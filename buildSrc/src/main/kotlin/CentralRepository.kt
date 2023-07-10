@@ -2,7 +2,7 @@ object CentralRepository {
     object Artifact {
         const val GROUP_ID = "com.oliverspryn.library"
         const val ID = "semver"
-        const val VERSION = "1.0.0"
+        const val VERSION = "1.1.0"
     }
 
     object Developer {
