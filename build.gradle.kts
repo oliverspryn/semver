@@ -92,9 +92,9 @@ publishing {
 }
 
 signing {
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
+    val GPG_SIGNING_KEY: String? by project
+    val GPG_SIGNING_KEY_PASSWORD: String? by project
+    useInMemoryPgpKeys(GPG_SIGNING_KEY, GPG_SIGNING_KEY_PASSWORD)
     sign(publishing.publications["semver"])
 }
 
