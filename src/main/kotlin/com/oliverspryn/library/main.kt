@@ -60,6 +60,8 @@ fun main() {
     println(Semver("2.01.000100"))
     println(Semver("1.0.0-alpha.0"))
     println(Semver("1.0.00-ALphA.1"))
+    println(Semver(1, 0, 0))
+    println(Semver(3, 1, 4, "rc.1"))
 
     try {
         Semver("Something else")
