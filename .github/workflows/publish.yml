@@ -19,10 +19,13 @@ jobs:
 
       - name: Write Out Secrets to Gradle
         run: |
+          echo '' >> gradle.properties
+          echo '' >> gradle.properties
           echo centralUsername=$CENTRAL_REPOSITORY_USERNAME >> gradle.properties
           echo centralPassword=$CENTRAL_REPOSITORY_PASSWORD >> gradle.properties
           echo GPG_SIGNING_KEY=$GPG_SIGNING_KEY >> gradle.properties
           echo GPG_SIGNING_KEY_PASSWORD=$GPG_SIGNING_KEY_PASSWORD >> gradle.properties
+          echo '' >> gradle.properties
         env:
           CENTRAL_REPOSITORY_USERNAME: ${{ secrets.CENTRAL_REPOSITORY_USERNAME }}
           CENTRAL_REPOSITORY_PASSWORD: ${{ secrets.CENTRAL_REPOSITORY_PASSWORD }}
